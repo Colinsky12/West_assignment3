@@ -42,8 +42,26 @@ public class BinarySearchTreeDriver {
         } //if
         String input = scanner.nextLine();
         if (input.equalsIgnoreCase("i")) {
+            tree.inOrder();
+            tree.setPrintDuplicates(true);
+            if(listType.equals("s")) {
+                System.out.print("Enter a string to insert: ");
+                T insertionVal = (T) scanner.nextLine();
+                tree.insert(insertionVal);
+            } else {
+                System.out.print("Enter a number to insert: ");
+                if (listType.equals("i")) {
+                    T insertionVal = (T) Integer.valueOf(scanner.nextLine());
+                    tree.insert(insertionVal);
+                } else {
+                    T insertionVal = (T) Double.valueOf(scanner.nextLine());
+                    tree.insert(insertionVal);
+                } //if-else list is int
+            } //if-else list is string
+            tree.inOrder();
         } else if (input.equalsIgnoreCase("d")) {
         } else if (input.equalsIgnoreCase("p")) {
+            tree.inOrder();
         } else if (input.equalsIgnoreCase("r")) {
         } else if (input.equalsIgnoreCase("l")) {
         } else if (input.equalsIgnoreCase("s")) {
