@@ -1,3 +1,5 @@
+import org.w3c.dom.Node;
+
 public class BinarySearchTree<T extends Comparable<T>> {
     private NodeType<T> head;
     private boolean printDuplicates;
@@ -53,11 +55,77 @@ public class BinarySearchTree<T extends Comparable<T>> {
     } //insertHelper
 
     public void delete(T key) {
-        
+        NodeType<T> current = head;
+        head = deleteHelper(current, key);
     } //delete
 
+    private NodeType<T> deleteHelper(NodeType<T> current, T key) {
+            if (current == null) {
+                System.out.println("The item is not present in the tree.");
+                return null;
+            } else if (key.compareTo(current.info) < 0) {
+                //Take left path
+                current.left = deleteHelper(current.left, key);
+                return current;
+            } else if (key.compareTo(current.info) > 0) {
+                //Take right path
+                current.right = deleteHelper(current.right, key);
+                return current;
+            } else {
+                //Item found, delete it
+                if (current.left == null && current.right == null) {
+                    //Case 1: No children
+                    return null;
+                } else if (current.left == null) {
+                    //Case 2: One child (right)
+                    return current.right;
+                } else if (current.right == null) {
+                    //Case 3: One child (left)
+                    return current.left;
+                } else {
+                    //Case 4: Two children, find the in-order successor (smallest in the right subtree)
+                    NodeType<T> successor = findMin(current.right);
+                    current.info = successor.info; //Replace current's value with successor's value
+                    current.right = deleteHelper(current.right, successor.info); //Delete the successor node
+                    return current;
+                }
+            }
+    } //deleteHelper
+
+    private NodeType<T> findMin(NodeType<T> node) {
+        while (node.left != null) {
+            node = node.left;
+        }
+        return node;
+    } //findMin
+
     public boolean retrieve(T item) {
-        return false;
+        if (head == null) {
+            System.out.println("The tree is empty.");
+            return false;
+        } else {
+            boolean found = false;
+            NodeType<T> current = head;
+            while (current != null) {
+                if (item.compareTo(current.info) < 0) {
+                    //Take left path
+                    current = current.left;
+                } else if (item.compareTo(current.info) > 0) {
+                    //Take right path
+                    current = current.right;
+                } else {
+                    //Item found
+                    found = true;
+                    break;
+                }
+            }
+            if (found) {
+                System.out.println("Item is present in the tree.");
+            } else {
+                System.out.println("Item is not present in the tree.");
+            }
+            return found;
+        }
     } //retrieve
 
     //Prints the tree in order (left, root, right)
@@ -88,8 +156,23 @@ public class BinarySearchTree<T extends Comparable<T>> {
     } //inOrderHelper
 
     public void getSingleParent() {
-
+        NodeType<T> current = head;
+        System.out.print("Single Parents: ");
+        getSingleParentHelper(current);
+        System.out.println("");
     }
+
+    private void getSingleParentHelper(NodeType<T> current) {
+        if (current != null) {
+            getSingleParentHelper(current.left);
+            if (current.left != null && current.right == null) {
+                System.out.print(current.info + " ");
+            } else if (current.left == null && current.right != null) {
+                System.out.print(current.info + " ");
+            }
+            getSingleParentHelper(current.right);
+        }
+    } //getSingleParentHelper
 
     public void getNumLeafNodes() {
 

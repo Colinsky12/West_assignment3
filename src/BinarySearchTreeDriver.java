@@ -60,11 +60,46 @@ public class BinarySearchTreeDriver {
             } //if-else list is string
             tree.inOrder();
         } else if (input.equalsIgnoreCase("d")) {
+            tree.inOrder();
+            tree.setPrintDuplicates(true);
+            if(listType.equals("s")) {
+                System.out.print("Enter a string to delete: ");
+                T insertionVal = (T) scanner.nextLine();
+                tree.delete(insertionVal);
+            } else {
+                System.out.print("Enter a number to delete: ");
+                if (listType.equals("i")) {
+                    T insertionVal = (T) Integer.valueOf(scanner.nextLine());
+                    tree.delete(insertionVal);
+                } else {
+                    T insertionVal = (T) Double.valueOf(scanner.nextLine());
+                    tree.delete(insertionVal);
+                } //if-else list is int
+            } //if-else list is string
+            tree.inOrder();
         } else if (input.equalsIgnoreCase("p")) {
             tree.inOrder();
         } else if (input.equalsIgnoreCase("r")) {
+            tree.inOrder();
+            if(listType.equals("s")) {
+                System.out.print("Enter a string to search: ");
+                T insertionVal = (T) scanner.nextLine();
+                tree.retrieve(insertionVal);
+            } else {
+                System.out.print("Enter a number to search: ");
+                if (listType.equals("i")) {
+                    T insertionVal = (T) Integer.valueOf(scanner.nextLine());
+                    tree.retrieve(insertionVal);
+                } else {
+                    T insertionVal = (T) Double.valueOf(scanner.nextLine());
+                    tree.retrieve(insertionVal);
+                } //if-else list is int
+            } //if-else list is string
+            tree.setPrintDuplicates(true);
         } else if (input.equalsIgnoreCase("l")) {
         } else if (input.equalsIgnoreCase("s")) {
+            tree.inOrder();
+            tree.getSingleParent();
         } else if (input.equalsIgnoreCase("c")) {
         } else if (input.equalsIgnoreCase("q")) {
             System.out.println("Exiting the program...");
