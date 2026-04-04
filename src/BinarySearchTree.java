@@ -175,10 +175,72 @@ public class BinarySearchTree<T extends Comparable<T>> {
     } //getSingleParentHelper
 
     public void getNumLeafNodes() {
-
+        int numLeafNodes = getNumLeafNodesHelper(head);
+        System.out.println("The number of leaf nodes are " + numLeafNodes);
     } //getNumLeafNodes
 
-    public void getCousins() {
+    private int getNumLeafNodesHelper(NodeType<T> current) {
+        if (current == null) {
+            return 0;
+        }
+        if (current.left == null && current.right == null) {
+            return 1; //Current node is a leaf
+        } else {
+            return getNumLeafNodesHelper(current.left) + getNumLeafNodesHelper(current.right);
+        }
+        
+    } //getNumLeafNodesHelper
 
+    public void getCousins(T item) {
+        NodeType<T> current = head;
+        NodeType<T> parent = null;
+        NodeType<T> grandparent = null;
+        //1: find item in the tree
+        if (head == null) {
+            System.out.println("The tree is empty.");
+        } else {
+            while (current != null) {
+                if (item.compareTo(current.info) < 0) {
+                    //Take left path
+                    grandparent = parent;
+                    parent = current;
+                    current = current.left;
+                } else if (item.compareTo(current.info) > 0) {
+                    //Take right path
+                    grandparent = parent;
+                    parent = current;
+                    current = current.right;
+                } else if (item.compareTo(current.info) == 0) {
+                    //Item found
+                    break;
+                } //search for item in tree
+                if (current == null) {
+                    System.out.println("Item is not present in the tree.");
+                    return;
+                }
+            } //while loop to find item in tree
+            System.out.print(item + "cousins: "); 
+            if (grandparent == null) {
+                return;
+            } else {
+                if (grandparent.left != parent && grandparent.left != null) {
+                    if (grandparent.left.left != null) {
+                        System.out.print(grandparent.left.left.info + " ");
+                    }
+                    if (grandparent.left.right != null) {
+                        System.out.print(grandparent.left.right.info + " ");
+                    }
+                }
+                if (grandparent.right != parent && grandparent.right != null) {
+                    if (grandparent.right.left != null) {
+                        System.out.print(grandparent.right.left.info + " ");
+                    }
+                    if (grandparent.right.right != null) {
+                        System.out.print(grandparent.right.right.info + " ");
+                    }
+                }
+            }
+        } //if/else
+        System.out.println("");
     } //getCousins
 } //BinarySearchTree

@@ -74,9 +74,9 @@ public class BinarySearchTreeDriver {
                 } else {
                     T insertionVal = (T) Double.valueOf(scanner.nextLine());
                     tree.delete(insertionVal);
+                    tree.inOrder();
                 } //if-else list is int
             } //if-else list is string
-            tree.inOrder();
         } else if (input.equalsIgnoreCase("p")) {
             tree.inOrder();
         } else if (input.equalsIgnoreCase("r")) {
@@ -97,10 +97,27 @@ public class BinarySearchTreeDriver {
             } //if-else list is string
             tree.setPrintDuplicates(true);
         } else if (input.equalsIgnoreCase("l")) {
+            tree.inOrder();
+            tree.getNumLeafNodes();
         } else if (input.equalsIgnoreCase("s")) {
             tree.inOrder();
             tree.getSingleParent();
         } else if (input.equalsIgnoreCase("c")) {
+            tree.inOrder();
+            if(listType.equals("s")) {
+                System.out.print("Enter a string: ");
+                T insertionVal = (T) scanner.nextLine();
+                tree.getCousins(insertionVal);
+            } else {
+                System.out.print("Enter a number: ");
+                if (listType.equals("i")) {
+                    T insertionVal = (T) Integer.valueOf(scanner.nextLine());
+                    tree.getCousins(insertionVal);
+                } else {
+                    T insertionVal = (T) Double.valueOf(scanner.nextLine());
+                    tree.getCousins(insertionVal);
+                } //if-else list is int
+            } //if-else list is string
         } else if (input.equalsIgnoreCase("q")) {
             System.out.println("Exiting the program...");
         } else {
